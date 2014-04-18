@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adminkiss.crm.dao.system.SysRoleRightDao" >
+
+  <resultMap id="BaseResultMap" type="SysRoleRight" >
+    <id column="id" property="id"/>
+    <result column="role_id" property="roleId"/>
+    <result column="right_id" property="rightId"/>
+  </resultMap>
+  
+  <resultMap id="authMenuResultMap" type="AuthMenu" >
+	<id property="id" column="id" />
+	<result property="name" column="name" />  
+	<result property="url" column="menu_url" />
+	<result property="iconSkin" column="menu_css" />
+	<result property="leaf" column="leaf" />
+	<result property="sort" column="sort" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, role_id, right_id
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_right
+    where id = #{id}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_role_right
+    where id = #{id}
+  </delete>
+  
+  <insert id="insert" parameterType="SysRoleRight" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_role_right (role_id, right_id)
+    values (#{roleId}, #{rightId})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="SysRoleRight" >
+    update sys_role_right
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId},
+      </if>
+      <if test="rightId != null" >
+        right_id = #{rightId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+  <select id="selectRightUrlByRole" resultType="java.lang.String" parameterType="java.lang.Long">
+		select
+		su.right_url
+		from sys_role_right srr, sys_url su
+		where srr.right_id=su.right_id
+		and srr.role_id=#{value}
+	</select>
+	
+	<select id="selectRightMenuByRole" resultMap="authMenuResultMap" parameterType="java.util.Map">
+		SELECT 
+			sm.id,
+			sm.`name`,
+			sm.menu_css,
+			sm.menu_url,
+			sm.leaf,
+			sm.sort
+		FROM sys_menu sm, sys_role_right srr
+		WHERE sm.right_id=srr.right_id and sm.parent_id=#{parentId} and srr.role_id=#{roleId}
+		ORDER BY sort asc
+	</select>
+
+</mapper>

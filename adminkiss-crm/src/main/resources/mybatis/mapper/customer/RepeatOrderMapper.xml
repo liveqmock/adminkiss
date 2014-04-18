@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.RepeatOrderMapper" >
+  <resultMap id="BaseResultMap" type="model.RepeatOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="repeat_ids" property="repeatIds" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="created_uid" property="createdUid" jdbcType="BIGINT" />
+    <result column="check_uid" property="checkUid" jdbcType="BIGINT" />
+    <result column="repeat_id" property="repeatId" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, repeat_ids, status, created_uid, check_uid, repeat_id, created_time, last_modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from repeat_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from repeat_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.RepeatOrder" >
+    insert into repeat_order (id, repeat_ids, status, 
+      created_uid, check_uid, repeat_id, 
+      created_time, last_modified_time)
+    values (#{id,jdbcType=BIGINT}, #{repeatIds,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{createdUid,jdbcType=BIGINT}, #{checkUid,jdbcType=BIGINT}, #{repeatId,jdbcType=BIGINT}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="model.RepeatOrder" >
+    insert into repeat_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="repeatIds != null" >
+        repeat_ids,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createdUid != null" >
+        created_uid,
+      </if>
+      <if test="checkUid != null" >
+        check_uid,
+      </if>
+      <if test="repeatId != null" >
+        repeat_id,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="repeatIds != null" >
+        #{repeatIds,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdUid != null" >
+        #{createdUid,jdbcType=BIGINT},
+      </if>
+      <if test="checkUid != null" >
+        #{checkUid,jdbcType=BIGINT},
+      </if>
+      <if test="repeatId != null" >
+        #{repeatId,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.RepeatOrder" >
+    update repeat_order
+    <set >
+      <if test="repeatIds != null" >
+        repeat_ids = #{repeatIds,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdUid != null" >
+        created_uid = #{createdUid,jdbcType=BIGINT},
+      </if>
+      <if test="checkUid != null" >
+        check_uid = #{checkUid,jdbcType=BIGINT},
+      </if>
+      <if test="repeatId != null" >
+        repeat_id = #{repeatId,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.RepeatOrder" >
+    update repeat_order
+    set repeat_ids = #{repeatIds,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_uid = #{createdUid,jdbcType=BIGINT},
+      check_uid = #{checkUid,jdbcType=BIGINT},
+      repeat_id = #{repeatId,jdbcType=BIGINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

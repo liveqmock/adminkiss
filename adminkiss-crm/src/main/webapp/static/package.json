@@ -1,0 +1,28 @@
+{
+    "name": "adminkiss-seajs",
+    "version": "0.0.1",
+    "spm": {
+        "alias": {
+            "jquery": "libs/jquery/jquery",
+            "jquery-pjax": "dist/mods/jquery/src/jquery-pjax",
+            "jquery-ui": "dist/mods/jquery/src/jquery-ui",
+            "jquery-validate": "dist/mods/jquery/src/jquery-validate",
+            "carousel": "dist/mods/bootstrap/src/carousel",
+            "dropdown": "dist/mods/bootstrap/src/dropdown",
+            "message": "dist/mods/message/src/message",
+            "nprogress": "dist/mods/nprogress/src/nprogress",
+            "common": "dist/mods/common/src/common"
+        }
+    },
+
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-cmd-transport": "~0.2.0",
+        "grunt-cmd-concat": "~0.2.0",
+        "grunt-contrib-uglify": "~0.2.0",
+        "grunt-contrib-clean": "~0.4.0",
+        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-contrib-copy": "*"
+    }
+}

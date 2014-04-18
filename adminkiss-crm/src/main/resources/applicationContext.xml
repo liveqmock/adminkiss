@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd"
+		default-lazy-init="true">
+
+	<description>Spring 持久层公共配置</description>
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.adminkiss.crm">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	<!-- Service 性能监控 -->
+	<bean id="performanceMonitor" class="com.adminkiss.crm.common.PerfInterceptor" />
+	<aop:config>
+	    <aop:pointcut id="allServiceMethods" expression="execution(* com.adminkiss.crm.service.*.*(..))"/>
+	    <aop:advisor pointcut-ref="allServiceMethods" advice-ref="performanceMonitor" order="2"/>
+	</aop:config>
+	<context:property-placeholder location="classpath*:/application.properties" />
+	<!-- SpyMemcached客户端 -->
+	<bean id="spyMemcachedClient" class="com.adminkiss.core.cache.SpyMemcachedClient">
+		<property name="memcachedClient">
+			<bean class="net.spy.memcached.spring.MemcachedClientFactoryBean">
+				<property name="servers" value="${memcached.url}" />
+				<!-- 默认是TEXT -->
+				<property name="protocol" value="TEXT" />
+				<!-- 默认是ARRAY_MOD -->
+				<property name="locatorType" value="CONSISTENT" />
+				<!-- 默认是2500毫秒 -->
+				<property name="opTimeout" value="1000" />
+			</bean>
+		</property>
+		<property name="updateTimeout" value="1000"/>
+		<property name="shutdownTimeout" value="1000"/>
+	</bean>
+
+	<!-- 数据源配置,使用应用内的Tomcat JDBC连接池 -->
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+			<!-- Connection Info -->
+			<property name="driverClassName" value="${jdbc.driver}" />
+			<property name="url" value="${jdbc.url}" />
+			<property name="username" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+			<property name="maxActive" value="${jdbc.pool.maxActive}" />
+			<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+			<property name="minIdle" value="0" />
+			<property name="defaultAutoCommit" value="false" />
+			<!-- 连接Idle10分钟后超时，每1分钟检查一次 -->
+			<property name="timeBetweenEvictionRunsMillis" value="60000" />
+			<property name="minEvictableIdleTimeMillis" value="600000" />
+		</bean>
+	
+	<!-- MyBatis配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+	</bean>
+	<!-- 使用annotation定义事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+	<!-- 定义aspectj -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<import resource="spring/applicationContext-dao.xml" />
+	<!-- hibernate validator -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	<bean id="initSystem" class="com.adminkiss.crm.common.InitSystem" init-method="startup" destroy-method="destroy" lazy-init="false"/>
+</beans>

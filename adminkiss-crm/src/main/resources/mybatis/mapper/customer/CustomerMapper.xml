@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="model.Customer" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="store_library" property="storeLibrary" jdbcType="TINYINT" />
+    <result column="repeat_id" property="repeatId" jdbcType="BIGINT" />
+    <result column="sources" property="sources" jdbcType="TINYINT" />
+    <result column="integrity" property="integrity" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="company_scope" property="companyScope" jdbcType="TINYINT" />
+    <result column="company_type" property="companyType" jdbcType="TINYINT" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="tags" property="tags" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="created_uid" property="createdUid" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.Customer" extends="BaseResultMap" >
+    <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, store_library, repeat_id, sources, integrity, status, company_name, industry, 
+    company_scope, company_type, telephone, area_code, address, tags, website, created_uid, 
+    created_time, last_modified_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    profile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from customer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from customer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.Customer" >
+    insert into customer (id, store_library, repeat_id, 
+      sources, integrity, status, 
+      company_name, industry, company_scope, 
+      company_type, telephone, area_code, 
+      address, tags, website, 
+      created_uid, created_time, last_modified_time, 
+      profile)
+    values (#{id,jdbcType=BIGINT}, #{storeLibrary,jdbcType=TINYINT}, #{repeatId,jdbcType=BIGINT}, 
+      #{sources,jdbcType=TINYINT}, #{integrity,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{companyName,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{companyScope,jdbcType=TINYINT}, 
+      #{companyType,jdbcType=TINYINT}, #{telephone,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{createdUid,jdbcType=BIGINT}, #{createdTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}, 
+      #{profile,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="storeLibrary != null" >
+        store_library,
+      </if>
+      <if test="repeatId != null" >
+        repeat_id,
+      </if>
+      <if test="sources != null" >
+        sources,
+      </if>
+      <if test="integrity != null" >
+        integrity,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="companyScope != null" >
+        company_scope,
+      </if>
+      <if test="companyType != null" >
+        company_type,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="tags != null" >
+        tags,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="createdUid != null" >
+        created_uid,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+      <if test="profile != null" >
+        profile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="storeLibrary != null" >
+        #{storeLibrary,jdbcType=TINYINT},
+      </if>
+      <if test="repeatId != null" >
+        #{repeatId,jdbcType=BIGINT},
+      </if>
+      <if test="sources != null" >
+        #{sources,jdbcType=TINYINT},
+      </if>
+      <if test="integrity != null" >
+        #{integrity,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScope != null" >
+        #{companyScope,jdbcType=TINYINT},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=TINYINT},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUid != null" >
+        #{createdUid,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profile != null" >
+        #{profile,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.Customer" >
+    update customer
+    <set >
+      <if test="storeLibrary != null" >
+        store_library = #{storeLibrary,jdbcType=TINYINT},
+      </if>
+      <if test="repeatId != null" >
+        repeat_id = #{repeatId,jdbcType=BIGINT},
+      </if>
+      <if test="sources != null" >
+        sources = #{sources,jdbcType=TINYINT},
+      </if>
+      <if test="integrity != null" >
+        integrity = #{integrity,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScope != null" >
+        company_scope = #{companyScope,jdbcType=TINYINT},
+      </if>
+      <if test="companyType != null" >
+        company_type = #{companyType,jdbcType=TINYINT},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUid != null" >
+        created_uid = #{createdUid,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profile != null" >
+        profile = #{profile,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.Customer" >
+    update customer
+    set store_library = #{storeLibrary,jdbcType=TINYINT},
+      repeat_id = #{repeatId,jdbcType=BIGINT},
+      sources = #{sources,jdbcType=TINYINT},
+      integrity = #{integrity,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      company_scope = #{companyScope,jdbcType=TINYINT},
+      company_type = #{companyType,jdbcType=TINYINT},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      created_uid = #{createdUid,jdbcType=BIGINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      profile = #{profile,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Customer" >
+    update customer
+    set store_library = #{storeLibrary,jdbcType=TINYINT},
+      repeat_id = #{repeatId,jdbcType=BIGINT},
+      sources = #{sources,jdbcType=TINYINT},
+      integrity = #{integrity,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      company_scope = #{companyScope,jdbcType=TINYINT},
+      company_type = #{companyType,jdbcType=TINYINT},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      created_uid = #{createdUid,jdbcType=BIGINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adminkiss.crm.dao.system.SysAccountDao" >
+
+  <resultMap id="BaseResultMap" type="SysAccount" >
+    <id column="id" property="id" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="salt" property="salt" />
+    <result column="name" property="name" />
+    <result column="dept_id" property="deptId" />
+    <result column="role_id" property="roleId" />
+    <result column="status" property="status" />
+    <result column="login_failure" property="loginFailure" />
+    <result column="login_time" property="lastLoginTime" />
+    <result column="created_time" property="createdTime" />
+    <result column="last_modified_time" property="lastModifiedTime" />
+  </resultMap>
+  
+  <resultMap id="AuthLoginUserResultMap" type="AuthLoginUser">
+		<id column="id" property="id" />
+		<result column="dept_id" property="deptId" />
+		<result column="role_id" property="roleId" />
+		<result column="username" property="username" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="login_failure" property="loginFailureCount" />
+		<result column="login_time" property="lastLoginTime" />
+		<result column="status" property="status" />
+	</resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, username, password, salt, name, dept_id, role_id, status, login_failure, login_time, 
+    created_time, last_modified_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_account
+    where id = #{id}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_account
+    where id = #{id}
+  </delete>
+  
+  <insert id="insert" parameterType="SysAccount" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_account (username, password, 
+      salt, name, dept_id, 
+      role_id, status, login_failure, 
+      login_time, created_time, last_modified_time
+      )
+    values (#{username}, #{password}, 
+      #{salt}, #{name}, #{deptId}, 
+      #{roleId}, #{status}, #{loginFailure}, 
+      #{loginTime}, now(), now()
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="SysAccount" >
+    update sys_account
+    <set >
+      <if test="username != null" >
+        username = #{username},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="loginFailure != null" >
+        login_failure = #{loginFailure},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime},
+      </if>
+      last_modified_time = now()
+    </set>
+    where id = #{id}
+  </update>
+  
+  	<select id="selectByUsername" resultMap="AuthLoginUserResultMap" parameterType="java.lang.String">
+		SELECT
+		sa.id,
+		sa.dept_id,
+		sa.role_id,
+		sa.username,
+		sa.password,
+		sa.salt,
+		sa.login_failure,
+		sa.status,
+		sa.login_time,
+		sa.`name`
+		FROM sys_account sa
+		WHERE sa.username = #{value}
+	</select>
+</mapper>

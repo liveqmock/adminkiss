@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.CustomerBuyProductMapper" >
+  <resultMap id="BaseResultMap" type="model.CustomerBuyProduct" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cid" property="cid" jdbcType="BIGINT" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="discount" property="discount" jdbcType="INTEGER" />
+    <result column="cheap" property="cheap" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="pay_status" property="payStatus" jdbcType="TINYINT" />
+    <result column="warranty_start_time" property="warrantyStartTime" jdbcType="DATE" />
+    <result column="warranty_end_time" property="warrantyEndTime" jdbcType="DATE" />
+    <result column="warranty_count" property="warrantyCount" jdbcType="INTEGER" />
+    <result column="auth_id" property="authId" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cid, pid, discount, cheap, price, pay_status, warranty_start_time, warranty_end_time, 
+    warranty_count, auth_id, created_time, last_modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_buy_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from customer_buy_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.CustomerBuyProduct" >
+    insert into customer_buy_product (id, cid, pid, discount, 
+      cheap, price, pay_status, 
+      warranty_start_time, warranty_end_time, warranty_count, 
+      auth_id, created_time, last_modified_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{cid,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{discount,jdbcType=INTEGER}, 
+      #{cheap,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{payStatus,jdbcType=TINYINT}, 
+      #{warrantyStartTime,jdbcType=DATE}, #{warrantyEndTime,jdbcType=DATE}, #{warrantyCount,jdbcType=INTEGER}, 
+      #{authId,jdbcType=BIGINT}, #{createdTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.CustomerBuyProduct" >
+    insert into customer_buy_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="cheap != null" >
+        cheap,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="warrantyStartTime != null" >
+        warranty_start_time,
+      </if>
+      <if test="warrantyEndTime != null" >
+        warranty_end_time,
+      </if>
+      <if test="warrantyCount != null" >
+        warranty_count,
+      </if>
+      <if test="authId != null" >
+        auth_id,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="cheap != null" >
+        #{cheap,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="warrantyStartTime != null" >
+        #{warrantyStartTime,jdbcType=DATE},
+      </if>
+      <if test="warrantyEndTime != null" >
+        #{warrantyEndTime,jdbcType=DATE},
+      </if>
+      <if test="warrantyCount != null" >
+        #{warrantyCount,jdbcType=INTEGER},
+      </if>
+      <if test="authId != null" >
+        #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.CustomerBuyProduct" >
+    update customer_buy_product
+    <set >
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="cheap != null" >
+        cheap = #{cheap,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="warrantyStartTime != null" >
+        warranty_start_time = #{warrantyStartTime,jdbcType=DATE},
+      </if>
+      <if test="warrantyEndTime != null" >
+        warranty_end_time = #{warrantyEndTime,jdbcType=DATE},
+      </if>
+      <if test="warrantyCount != null" >
+        warranty_count = #{warrantyCount,jdbcType=INTEGER},
+      </if>
+      <if test="authId != null" >
+        auth_id = #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.CustomerBuyProduct" >
+    update customer_buy_product
+    set cid = #{cid,jdbcType=BIGINT},
+      pid = #{pid,jdbcType=BIGINT},
+      discount = #{discount,jdbcType=INTEGER},
+      cheap = #{cheap,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      pay_status = #{payStatus,jdbcType=TINYINT},
+      warranty_start_time = #{warrantyStartTime,jdbcType=DATE},
+      warranty_end_time = #{warrantyEndTime,jdbcType=DATE},
+      warranty_count = #{warrantyCount,jdbcType=INTEGER},
+      auth_id = #{authId,jdbcType=BIGINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

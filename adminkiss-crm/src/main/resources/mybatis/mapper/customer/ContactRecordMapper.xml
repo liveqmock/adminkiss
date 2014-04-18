@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.ContactRecordMapper" >
+  <resultMap id="BaseResultMap" type="model.ContactRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cid" property="cid" jdbcType="BIGINT" />
+    <result column="ccid" property="ccid" jdbcType="BIGINT" />
+    <result column="contact_type" property="contactType" jdbcType="TINYINT" />
+    <result column="contact_status" property="contactStatus" jdbcType="TINYINT" />
+    <result column="attachment" property="attachment" jdbcType="VARCHAR" />
+    <result column="auth_id" property="authId" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.ContactRecord" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cid, ccid, contact_type, contact_status, attachment, auth_id, created_time, last_modified_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from contact_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from contact_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.ContactRecord" >
+    insert into contact_record (id, cid, ccid, contact_type, 
+      contact_status, attachment, auth_id, 
+      created_time, last_modified_time, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{cid,jdbcType=BIGINT}, #{ccid,jdbcType=BIGINT}, #{contactType,jdbcType=TINYINT}, 
+      #{contactStatus,jdbcType=TINYINT}, #{attachment,jdbcType=VARCHAR}, #{authId,jdbcType=BIGINT}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.ContactRecord" >
+    insert into contact_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="ccid != null" >
+        ccid,
+      </if>
+      <if test="contactType != null" >
+        contact_type,
+      </if>
+      <if test="contactStatus != null" >
+        contact_status,
+      </if>
+      <if test="attachment != null" >
+        attachment,
+      </if>
+      <if test="authId != null" >
+        auth_id,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="ccid != null" >
+        #{ccid,jdbcType=BIGINT},
+      </if>
+      <if test="contactType != null" >
+        #{contactType,jdbcType=TINYINT},
+      </if>
+      <if test="contactStatus != null" >
+        #{contactStatus,jdbcType=TINYINT},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.ContactRecord" >
+    update contact_record
+    <set >
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="ccid != null" >
+        ccid = #{ccid,jdbcType=BIGINT},
+      </if>
+      <if test="contactType != null" >
+        contact_type = #{contactType,jdbcType=TINYINT},
+      </if>
+      <if test="contactStatus != null" >
+        contact_status = #{contactStatus,jdbcType=TINYINT},
+      </if>
+      <if test="attachment != null" >
+        attachment = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        auth_id = #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.ContactRecord" >
+    update contact_record
+    set cid = #{cid,jdbcType=BIGINT},
+      ccid = #{ccid,jdbcType=BIGINT},
+      contact_type = #{contactType,jdbcType=TINYINT},
+      contact_status = #{contactStatus,jdbcType=TINYINT},
+      attachment = #{attachment,jdbcType=VARCHAR},
+      auth_id = #{authId,jdbcType=BIGINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.ContactRecord" >
+    update contact_record
+    set cid = #{cid,jdbcType=BIGINT},
+      ccid = #{ccid,jdbcType=BIGINT},
+      contact_type = #{contactType,jdbcType=TINYINT},
+      contact_status = #{contactStatus,jdbcType=TINYINT},
+      attachment = #{attachment,jdbcType=VARCHAR},
+      auth_id = #{authId,jdbcType=BIGINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+	</settings>
+	<typeAliases>
+		<!-- system -->
+		<typeAlias type="com.adminkiss.core.auth.AuthLoginUser" alias="AuthLoginUser"/>
+		<typeAlias type="com.adminkiss.core.auth.AuthMenu" alias="AuthMenu"/>
+		<typeAlias type="com.adminkiss.crm.domain.system.SysAccount" alias="SysAccount"/>
+		<typeAlias type="com.adminkiss.crm.domain.system.SysRoleRight" alias="SysRoleRight"/>
+		<typeAlias type="com.adminkiss.crm.domain.system.SysArea" alias="SysArea"/>
+		
+	</typeAliases>
+	<mappers>
+		<mapper resource="mybatis/mapper/system/SysAccountMapper.xml"/>
+		<mapper resource="mybatis/mapper/system/SysRoleRightMapper.xml"/>
+		<mapper resource="mybatis/mapper/system/SysAreaMapper.xml"/>
+		
+	</mappers>
+</configuration>

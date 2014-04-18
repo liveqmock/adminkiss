@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="model.Product" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="quantity_unit" property="quantityUnit" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="price_unit" property="priceUnit" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.ProductWithBLOBs" extends="BaseResultMap" >
+    <result column="property" property="property" jdbcType="LONGVARCHAR" />
+    <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, quantity, quantity_unit, price, price_unit, status, created_time, last_modified_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    property, profile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.ProductWithBLOBs" >
+    insert into product (id, name, quantity, 
+      quantity_unit, price, price_unit, 
+      status, created_time, last_modified_time, 
+      property, profile)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
+      #{quantityUnit,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{priceUnit,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createdTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}, 
+      #{property,jdbcType=LONGVARCHAR}, #{profile,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.ProductWithBLOBs" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="quantityUnit != null" >
+        quantity_unit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="priceUnit != null" >
+        price_unit,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+      <if test="property != null" >
+        property,
+      </if>
+      <if test="profile != null" >
+        profile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="quantityUnit != null" >
+        #{quantityUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="priceUnit != null" >
+        #{priceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="property != null" >
+        #{property,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="profile != null" >
+        #{profile,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.ProductWithBLOBs" >
+    update product
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="quantityUnit != null" >
+        quantity_unit = #{quantityUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="priceUnit != null" >
+        price_unit = #{priceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="property != null" >
+        property = #{property,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="profile != null" >
+        profile = #{profile,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.ProductWithBLOBs" >
+    update product
+    set name = #{name,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      quantity_unit = #{quantityUnit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      price_unit = #{priceUnit,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      property = #{property,jdbcType=LONGVARCHAR},
+      profile = #{profile,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Product" >
+    update product
+    set name = #{name,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      quantity_unit = #{quantityUnit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      price_unit = #{priceUnit,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

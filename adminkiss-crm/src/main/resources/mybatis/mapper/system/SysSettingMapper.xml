@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.SysSettingMapper" >
+  <resultMap id="BaseResultMap" type="model.SysSetting" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="system_name" property="systemName" jdbcType="VARCHAR" />
+    <result column="customer_protect_time" property="customerProtectTime" jdbcType="INTEGER" />
+    <result column="customer_max_limit" property="customerMaxLimit" jdbcType="INTEGER" />
+    <result column="sea_customer_time" property="seaCustomerTime" jdbcType="VARCHAR" />
+    <result column="backup_time" property="backupTime" jdbcType="TINYINT" />
+    <result column="last_backup_time" property="lastBackupTime" jdbcType="TIMESTAMP" />
+    <result column="last_restore_time" property="lastRestoreTime" jdbcType="TIMESTAMP" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, system_name, customer_protect_time, customer_max_limit, sea_customer_time, backup_time, 
+    last_backup_time, last_restore_time, created_time, last_modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_setting
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_setting
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.SysSetting" >
+    insert into sys_setting (id, system_name, customer_protect_time, 
+      customer_max_limit, sea_customer_time, backup_time, 
+      last_backup_time, last_restore_time, created_time, 
+      last_modified_time)
+    values (#{id,jdbcType=BIGINT}, #{systemName,jdbcType=VARCHAR}, #{customerProtectTime,jdbcType=INTEGER}, 
+      #{customerMaxLimit,jdbcType=INTEGER}, #{seaCustomerTime,jdbcType=VARCHAR}, #{backupTime,jdbcType=TINYINT}, 
+      #{lastBackupTime,jdbcType=TIMESTAMP}, #{lastRestoreTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{lastModifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="model.SysSetting" >
+    insert into sys_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="systemName != null" >
+        system_name,
+      </if>
+      <if test="customerProtectTime != null" >
+        customer_protect_time,
+      </if>
+      <if test="customerMaxLimit != null" >
+        customer_max_limit,
+      </if>
+      <if test="seaCustomerTime != null" >
+        sea_customer_time,
+      </if>
+      <if test="backupTime != null" >
+        backup_time,
+      </if>
+      <if test="lastBackupTime != null" >
+        last_backup_time,
+      </if>
+      <if test="lastRestoreTime != null" >
+        last_restore_time,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="systemName != null" >
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerProtectTime != null" >
+        #{customerProtectTime,jdbcType=INTEGER},
+      </if>
+      <if test="customerMaxLimit != null" >
+        #{customerMaxLimit,jdbcType=INTEGER},
+      </if>
+      <if test="seaCustomerTime != null" >
+        #{seaCustomerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backupTime != null" >
+        #{backupTime,jdbcType=TINYINT},
+      </if>
+      <if test="lastBackupTime != null" >
+        #{lastBackupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRestoreTime != null" >
+        #{lastRestoreTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="model.SysSetting" >
+    update sys_setting
+    <set >
+      <if test="systemName != null" >
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerProtectTime != null" >
+        customer_protect_time = #{customerProtectTime,jdbcType=INTEGER},
+      </if>
+      <if test="customerMaxLimit != null" >
+        customer_max_limit = #{customerMaxLimit,jdbcType=INTEGER},
+      </if>
+      <if test="seaCustomerTime != null" >
+        sea_customer_time = #{seaCustomerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backupTime != null" >
+        backup_time = #{backupTime,jdbcType=TINYINT},
+      </if>
+      <if test="lastBackupTime != null" >
+        last_backup_time = #{lastBackupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRestoreTime != null" >
+        last_restore_time = #{lastRestoreTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.SysSetting" >
+    update sys_setting
+    set system_name = #{systemName,jdbcType=VARCHAR},
+      customer_protect_time = #{customerProtectTime,jdbcType=INTEGER},
+      customer_max_limit = #{customerMaxLimit,jdbcType=INTEGER},
+      sea_customer_time = #{seaCustomerTime,jdbcType=VARCHAR},
+      backup_time = #{backupTime,jdbcType=TINYINT},
+      last_backup_time = #{lastBackupTime,jdbcType=TIMESTAMP},
+      last_restore_time = #{lastRestoreTime,jdbcType=TIMESTAMP},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

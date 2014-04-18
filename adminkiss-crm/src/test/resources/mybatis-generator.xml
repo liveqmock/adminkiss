@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<!-- http://mybatis.googlecode.com/svn/sub-projects/generator/trunk/eclipse/UpdateSite/ -->
+<generatorConfiguration>
+	<!-- 设置数据库驱动文件 -->
+	<classPathEntry
+		location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.21\mysql-connector-java-5.1.21.jar" />
+	<context id="context1">
+		<commentGenerator>
+			<!-- 避免生成注解 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1/adminkiss_crm" userId="root"
+			password="" />
+		<!-- Model文件保存位置--> 
+		<javaModelGenerator targetPackage="model" targetProject="adminkiss-crm" /> 
+		<!-- 生成的mapper文件 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="adminkiss-crm" />
+		<!-- 生成的查询条件的类 -->
+		<javaClientGenerator targetPackage="dao" targetProject="adminkiss-crm" type="XMLMAPPER" />
+		<!-- 需要连接的表 -->
+		<table tableName="auth_customer" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="contact_record" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="customer" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="customer_buy_product" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="customer_contact" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="customer_range" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="customer_tags" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="email_record" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="problem_order" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="product" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="repeat_order" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="resolution_order" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sms_record" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_account" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_area" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_menu" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_param" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_param_item" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_right" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_role_right" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_setting" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="sys_url" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="system_log" enableCountByExample="false"
+		enableUpdateByExample="false" enableDeleteByExample="false"
+		enableSelectByExample="false" selectByExampleQueryId="false" />
+		
+	</context>
+</generatorConfiguration>
