@@ -14,9 +14,9 @@
 target
 
 # Grunt Files #
-dist
 node_modules
 
 # Other Files #
 logs
 *~
+*.bak
